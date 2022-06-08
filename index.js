@@ -4,7 +4,7 @@ const { mongoose } = require('./database');
 var app = express();
 //middlewares
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:4200' }));
 //Rutas de la api
 app.use('/api/libro', require('./routes/libro.route'));
 app.use('/api/pasaje', require('./routes/pasaje.route'));

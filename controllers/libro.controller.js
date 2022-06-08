@@ -28,7 +28,7 @@ libroCtrl.editLibro = async(req, res) => {
         await Libro.updateOne({ _id: req.body._id }, req.body);
         res.json({
             'status': '1',
-            'msg': 'Libro updated'
+            'msg': 'Libro actualizado'
         })
     } catch (error) {
         res.status(400).json({
@@ -42,7 +42,7 @@ libroCtrl.deleteLibro = async(req, res) => {
         await Libro.deleteOne({ _id: req.params.id });
         res.json({
             status: '1',
-            msg: 'Libro removed'
+            msg: 'Libro eliminado'
         })
     } catch (error) {
         res.status(400).json({
