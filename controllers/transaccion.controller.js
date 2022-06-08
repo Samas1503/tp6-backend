@@ -27,7 +27,8 @@ transaccionCtrl.getTransaccionsClient = async(req, res) => {
         res.json(transacciones);
     } else
         res.status(401).json({
-            'status': '0'
+            'status': '0',
+            'msg': 'Parametros mal ingresados'
         })
 }
 transaccionCtrl.getTransaccionsDivisa = async(req, res) => {
