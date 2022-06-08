@@ -21,15 +21,17 @@ transaccionCtrl.createTransaccion = async(req, res) => {
     }
 }
 transaccionCtrl.getTransaccionsClient = async(req, res) => {
-    var transacciones = await Transaccion.find({ "emailCliente": req.params.email });
-    res.json(transacciones);
+    var email = req.params.email;
+    if (email != undefined) {
+        var transacciones = await Transaccion.find({ "emailCliente": req.params.email });
+        res.json(transacciones);
+    } else
+        res.status(401).json({
+            'status': '0'
+        })
 }
 transaccionCtrl.getTransaccionsDivisa = async(req, res) => {
-    var transacciones = await Transaccion.find({ "monedaOrigen": req.params.moneda });
-    var transaccionesD = await Transaccion.find({ "monedaDestino": req.params.moneda })
-    transaccionesD.forEach((t) => {
-        transacciones.push(t)
-    })
+    var transacciones = await Transaccion.find({ "monedaOrigen": req.query.origen, "modenaDestino": req.query.destino });
     res.json(transacciones)
 }
 module.exports = transaccionCtrl;

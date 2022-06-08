@@ -10,7 +10,7 @@ app.use('/api/libro', require('./routes/libro.route'));
 app.use('/api/pasaje', require('./routes/pasaje.route'));
 app.use('/api/persona', require('./routes/persona.route.js'));
 app.use('/api/transaccion', require('./routes/transaccion.route.js'));
-//setting
+//configuracion
 app.set('port', process.env.PORT || 3000);
 //starting the server
 app.listen(app.get('port'), () => {

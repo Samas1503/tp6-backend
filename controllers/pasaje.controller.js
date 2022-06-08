@@ -2,14 +2,10 @@ const Pasaje = require('../models/pasaje');
 const Pasajero = require('../models/persona')
 const pasajeCtrl = {}
 pasajeCtrl.getPasajes = async(req, res) => {
-    var pasajes = await Pasaje.find();
+    var pasajes = await Pasaje.find().populate("pasajero");
     if (pasajes.length != 0) {
-        pasajes.forEach(async(pas) => {
-            var pasajero = await Pasajero.findById(pas.pasajero.valueOf())
-            console.log(pasajero)
-        })
         res.json(pasajes);
-    } else res.json({ "Message": "No hay Transacciones" })
+    } else res.json({ "Message": "No hay Pasajes" }, success = true)
 }
 pasajeCtrl.createPasaje = async(req, res) => {
     var pasaje = new Pasaje(req.body);
@@ -29,7 +25,9 @@ pasajeCtrl.createPasaje = async(req, res) => {
 }
 pasajeCtrl.getPasajesCategoria = async(req, res) => {
     const pasajes = await Pasaje.find({ "categoriaPasajero": req.params.categoria });
-    res.json(pasajes);
+    if (pasajes.length != 0) {
+        res.json(pasajes);
+    } else res.json({ "Message": "No hay Pasajes con esa categoria" }, success = true)
 }
 pasajeCtrl.editPasaje = async(req, res) => {
     try {
