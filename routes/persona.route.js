@@ -6,6 +6,6 @@ const router = express.Router();
 //definimos las rutas para la gestion de persona
 router.get('/', personaCtrl.getPersonas);
 router.post('/', personaCtrl.createPersona);
-router.get('/:id', personaCtrl.getPersona);
+router.get('/:dni', personaCtrl.getPersona);
 //exportamos el modulo de rutas
 module.exports = router;

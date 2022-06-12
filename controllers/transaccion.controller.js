@@ -1,38 +1,58 @@
 const Transaccion = require('../models/transaccion');
-const Cliente = require('./../models/persona');
 const transaccionCtrl = {}
 transaccionCtrl.getTransaccions = async(req, res) => {
-    var transaccions = await Transaccion.find();
-    res.json(transaccions);
+    try {
+        var transaccions = await Transaccion.find();
+        res.status(200).json(transaccions);
+    } catch (error) {
+        res.status(400).json({
+            status: '1',
+            msg: 'Error al obtener las transacciones',
+            error: error
+        })
+    }
 }
 transaccionCtrl.createTransaccion = async(req, res) => {
     var transaccion = new Transaccion(req.body);
     try {
         await transaccion.save();
-        res.json({
-            'status': '1',
-            'msg': 'Transaccion guardado.'
+        res.status(200).json({
+            status: '1',
+            msg: 'Transaccion guardado.'
         })
     } catch (error) {
         res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando operacion.'
+            status: '0',
+            msg: 'Error procesando operacion.',
+            error: error
         })
     }
 }
-transaccionCtrl.getTransaccionsClient = async(req, res) => {
-    var email = req.params.email;
-    if (email != undefined) {
-        var transacciones = await Transaccion.find({ "emailCliente": req.params.email });
-        res.json(transacciones);
-    } else
-        res.status(401).json({
-            'status': '0',
-            'msg': 'Parametros mal ingresados'
+transaccionCtrl.getTransaccionesCliente = async(req, res) => {
+    try {
+        const email = req.params.email;
+        var transacciones = await Transaccion.find({ emailCliente: email });
+        res.status(200).json(transacciones);
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error al filtrar transaccione por cliente',
+            error: error
         })
+    }
 }
-transaccionCtrl.getTransaccionsDivisa = async(req, res) => {
-    var transacciones = await Transaccion.find({ "monedaOrigen": req.query.origen, "modenaDestino": req.query.destino });
-    res.json(transacciones)
+transaccionCtrl.getTransaccionesDivisas = async(req, res) => {
+    try {
+        const origen = req.query.origen,
+            destino = req.query.destino;
+        var transacciones = await Transaccion.find({ monedaOrigen: origen, modenaDestino: destino });
+        res.status(200).json(transacciones)
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error al filtrar transacciones por divisas',
+            error: error
+        })
+    }
 }
 module.exports = transaccionCtrl;

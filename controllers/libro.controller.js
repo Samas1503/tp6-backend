@@ -1,53 +1,72 @@
 const Libro = require('../models/libro');
 const libroCtrl = {}
 libroCtrl.getLibros = async(req, res) => {
-    var libros = await Libro.find();
-    res.json(libros);
+    try {
+        var libros = await Libro.find();
+        res.status(200).json(libros);
+    } catch (error) {
+        res.status(400).json({
+            status: 0,
+            msg: "Error al obtener los libros",
+            error: error
+        })
+    }
 }
-libroCtrl.getLibrosDestacados = async(req, res) => {
-    var libros = await Libro.find({ "destacado": "true" })
-    res.json(libros)
+libroCtrl.filterByDestacados = async(req, res) => {
+    try {
+        var librosDestacados = await Libro.find({ destacado: true })
+        res.tatus(200).json(librosDestacados)
+    } catch (error) {
+        res.status(400).json({
+            status: 0,
+            msg: "Error al filtrar el libro",
+            error: error
+        })
+    }
 }
 libroCtrl.createLibro = async(req, res) => {
     var libro = new Libro(req.body);
     try {
         await libro.save();
-        res.json({
-            'status': '1',
-            'msg': 'Libro guardado.'
+        res.status(200).json({
+            status: '1',
+            msg: 'Libro guardado.'
         })
     } catch (error) {
         res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando operacion.'
+            status: '0',
+            msg: 'Error procesando operacion.',
+            error: error
         })
     }
 }
 libroCtrl.editLibro = async(req, res) => {
     try {
         await Libro.updateOne({ _id: req.body._id }, req.body);
-        res.json({
-            'status': '1',
-            'msg': 'Libro actualizado'
+        res.status(200).json({
+            status: '1',
+            msg: 'Libro actualizado correctamente'
         })
     } catch (error) {
         res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
+            status: '0',
+            msg: 'Error al actualizar Libro',
+            error: error
         })
     }
 }
 libroCtrl.deleteLibro = async(req, res) => {
     try {
-        await Libro.deleteOne({ _id: req.params.id });
-        res.json({
+        await Libro.findByIdAndDelete(req.params.id);
+        res.status(200).json({
             status: '1',
             msg: 'Libro eliminado'
         })
     } catch (error) {
         res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
+            status: '0',
+            msg: 'Error al eliminar el libro',
+            error: error
         })
     }
 }

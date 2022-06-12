@@ -6,7 +6,7 @@ const router = express.Router();
 //definimos las rutas para la gestion de transaccion
 router.get('/all', transaccionCtrl.getTransaccions);
 router.post('/', transaccionCtrl.createTransaccion);
-router.get('/:email', transaccionCtrl.getTransaccionsClient);
-router.get('/:origen?:destino?', transaccionCtrl.getTransaccionsDivisa);
+router.get('/:email', transaccionCtrl.getTransaccionesCliente);
+router.get('/:origen?:destino?', transaccionCtrl.getTransaccionesDivisas);
 //exportamos el modulo de rutas
 module.exports = router;

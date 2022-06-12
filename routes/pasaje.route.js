@@ -6,7 +6,7 @@ const router = express.Router();
 //definimos las rutas para la gestion de pasaje
 router.get('/', pasajeCtrl.getPasajes);
 router.post('/', pasajeCtrl.createPasaje);
-router.get('/:categoria', pasajeCtrl.getPasajesCategoria);
+router.get('/:categoria?', pasajeCtrl.filterPasajesByCategoria);
 router.put('/:id', pasajeCtrl.editPasaje);
 router.delete('/:id', pasajeCtrl.deletePasaje);
 //exportamos el modulo de rutas

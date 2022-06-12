@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 //definimos las rutas para la gestion de libro
 router.get('/', libroCtrl.getLibros);
-router.get('/destacados', libroCtrl.getLibrosDestacados);
+router.get('/destacados', libroCtrl.filterByDestacados);
 router.post('/', libroCtrl.createLibro);
 router.put('/', libroCtrl.editLibro);
 router.delete('/:id', libroCtrl.deleteLibro);
