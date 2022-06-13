@@ -5,10 +5,11 @@ libroCtrl.getLibros = async(req, res) => {
         var libros = await Libro.find();
         res.status(200).json(libros);
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: 0,
             msg: "Error al obtener los libros",
-            error: error
+
         })
     }
 }
@@ -17,10 +18,11 @@ libroCtrl.filterByDestacados = async(req, res) => {
         var librosDestacados = await Libro.find({ destacado: true })
         res.tatus(200).json(librosDestacados)
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: 0,
             msg: "Error al filtrar el libro",
-            error: error
+
         })
     }
 }
@@ -33,10 +35,11 @@ libroCtrl.createLibro = async(req, res) => {
             msg: 'Libro guardado.'
         })
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: '0',
-            msg: 'Error procesando operacion.',
-            error: error
+            msg: 'Error al crear un libro',
+
         })
     }
 }
@@ -48,10 +51,11 @@ libroCtrl.editLibro = async(req, res) => {
             msg: 'Libro actualizado correctamente'
         })
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: '0',
             msg: 'Error al actualizar Libro',
-            error: error
+
         })
     }
 }
@@ -63,10 +67,11 @@ libroCtrl.deleteLibro = async(req, res) => {
             msg: 'Libro eliminado'
         })
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             status: '0',
             msg: 'Error al eliminar el libro',
-            error: error
+
         })
     }
 }

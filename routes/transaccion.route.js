@@ -4,9 +4,8 @@ const transaccionCtrl = require('./../controllers/transaccion.controller');
 const express = require('express');
 const router = express.Router();
 //definimos las rutas para la gestion de transaccion
-router.get('/all', transaccionCtrl.getTransaccions);
+router.get('/', transaccionCtrl.getTransaccions);
 router.post('/', transaccionCtrl.createTransaccion);
-router.get('/:email', transaccionCtrl.getTransaccionesCliente);
-router.get('/:origen?:destino?', transaccionCtrl.getTransaccionesDivisas);
+router.get('/filtro:email?:origen?:destino?', transaccionCtrl.getTransaccionesFiltro);
 //exportamos el modulo de rutas
 module.exports = router;

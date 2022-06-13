@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/', personaCtrl.getPersonas);
 router.post('/', personaCtrl.createPersona);
 router.get('/:dni', personaCtrl.getPersona);
+router.delete('/:id', personaCtrl.deletePersona);
 //exportamos el modulo de rutas
 module.exports = router;
